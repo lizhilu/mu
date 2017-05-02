@@ -9,6 +9,8 @@ import java.awt.Insets;
 //import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -156,7 +158,21 @@ public class AVPlayer extends JFrame implements ActionListener{
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		
+		PlayerBoardListener mouseListener = new PlayerBoardListener();
+		component.addMouseMotionListener(mouseListener);
 
+	}
+	
+	/** Listener responsible for handling mouse events on player board */
+	private class PlayerBoardListener extends MouseAdapter {
+
+	  @Override 
+	  public void mouseMoved(MouseEvent event) {
+	    //TODO
+	    System.out.println("Mouse movement detected! Actual mouse position is: " + event.getX()+ "," + event.getY() + ".");
+	  }   
+ 
 	}
 	
 	/**
@@ -245,58 +261,6 @@ public class AVPlayer extends JFrame implements ActionListener{
 		}	
 	}
 	
-//	private void openFileAudio() {
-//		JFileChooser fileChooser = null;
-//		
-//		if (!imageLastOpenPath.isEmpty()){
-//			fileChooser = new JFileChooser(imageLastOpenPath);
-//		}else if(!audioLastOpenPath.isEmpty()) {
-//			fileChooser = new JFileChooser(audioLastOpenPath);
-//		} else {
-//			fileChooser = new JFileChooser();
-//		}
-//		
-//		FileFilter wavFilter = new FileFilter() {
-//			@Override
-//			public String getDescription() {
-//				return "Sound file (*.WAV)";
-//			}
-//
-//			@Override
-//			public boolean accept(File file) {
-//				if (file.isDirectory()) {
-//					return true;
-//				} else {
-//					return file.getName().toLowerCase().endsWith(".wav");
-//				}
-//			}
-//		};
-//		
-//		fileChooser.setFileFilter(wavFilter);
-//		fileChooser.setDialogTitle("Open Audio File");
-//		fileChooser.setAcceptAllFileFilterUsed(false);
-//
-//		int userChoice = fileChooser.showOpenDialog(this);
-//		if (userChoice == JFileChooser.APPROVE_OPTION) {
-//			audioFileName = fileChooser.getSelectedFile().getAbsolutePath();
-//			audioLastOpenPath = fileChooser.getSelectedFile().getParent();
-//			if (isPlaying || isPause) {
-//				stopPlaying();
-//				
-//				while(audioPlayer.getAudioClip().isRunning()) {
-//					try {
-//						Thread.sleep(100);
-//					} catch (InterruptedException ex) {
-//						ex.printStackTrace();
-//					}
-//				}
-//			}			
-//			//playBack();
-//			if(!imageLastOpenPath.isEmpty() && !audioLastOpenPath.isEmpty()){
-//				buttonPlay.setEnabled(true);
-//			}			
-//		}
-//	}
 	
 	/**
 	 * Stop, Pause, Resume audio and video
